@@ -22,11 +22,21 @@ jobs:
         dotnet-version: '5.0.x'
         include-prerelease: true
 
+    - name: Restore dependencies
+      run: dotnet restore Wx.Exercises.Api
+      working-directory: Wx.Exercises
+
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build Wx.Exercises.Api --no-restore --configuration Release
+      working-directory: Wx.Exercises
+      
+    - name: Run Tests
+      run: dotnet test Wx.Exercises.Tests --verbosity minimal
+      working-directory: Wx.Exercises
 
     - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish Wx.Exercises.Api -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      working-directory: Wx.Exercises
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
