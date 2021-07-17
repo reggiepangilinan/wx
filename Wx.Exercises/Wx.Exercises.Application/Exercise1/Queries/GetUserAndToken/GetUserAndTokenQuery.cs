@@ -32,7 +32,7 @@ namespace Wx.Exercises.Application.Exercise1.Queries.GetUserAndToken
             return new BasicResponseModel()
             {
                 Name = "Hello! 👋 It's me Reggie",
-                Token = ""
+                Token = "ef6abd87-34e2-4500-8649-f8f8418b7355"
             };
         }
     }

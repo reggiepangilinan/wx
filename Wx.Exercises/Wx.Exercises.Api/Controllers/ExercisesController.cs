@@ -21,9 +21,9 @@ namespace Wx.Exercises.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("token-and-name")]
+        [HttpGet("/user")]
         [ProducesResponseType(typeof(BasicResponseModel), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTokenAndName()
+        public async Task<IActionResult> GetUser()
         {
             var response = await _mediator.Send(new GetUserAndTokenQuery());
             return Ok(response);
