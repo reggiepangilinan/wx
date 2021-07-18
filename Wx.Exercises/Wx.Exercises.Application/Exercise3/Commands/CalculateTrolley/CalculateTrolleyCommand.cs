@@ -18,7 +18,7 @@ namespace Wx.Exercises.Application.Exercise3.Commands.CalculateTrolley
     /// <summary>
     /// Request object
     /// </summary>
-    public class CalculateTrolleyCommand : IRequest<decimal>
+    public class CalculateTrolleyCommand : IRequest<double>
     {
         public List<TrolleyProductModel> Products { get; init; }
         public List<TrolleySpecialModel> Specials { get; init; }
@@ -28,23 +28,23 @@ namespace Wx.Exercises.Application.Exercise3.Commands.CalculateTrolley
     /// <summary>
     /// Request Handler
     /// </summary>
-    public class CalculateTrolleryCommandHandler : IRequestHandler<CalculateTrolleyCommand, decimal>
+    public class CalculateTrolleyCommandHandler : IRequestHandler<CalculateTrolleyCommand, double>
     {
-        private readonly ILogger<CalculateTrolleryCommandHandler> _logger;
+        private readonly ILogger<CalculateTrolleyCommandHandler> _logger;
         private readonly IWxApiProxy _wxApiProxy;
         private readonly WxApiOptions _wxApiOptions;
 
-        public CalculateTrolleryCommandHandler(ILogger<CalculateTrolleryCommandHandler> logger, IWxApiProxy wxApiProxy, IOptions<WxApiOptions> wxApiOptions)
+        public CalculateTrolleyCommandHandler(ILogger<CalculateTrolleyCommandHandler> logger, IWxApiProxy wxApiProxy, IOptions<WxApiOptions> wxApiOptions)
         {
             _logger = logger;
             _wxApiProxy = wxApiProxy;
             _wxApiOptions = wxApiOptions?.Value;
         }
 
-        public async Task<decimal> Handle(CalculateTrolleyCommand request, CancellationToken cancellationToken)
+        public async Task<double> Handle(CalculateTrolleyCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"{LoggerConstants.ClassName}::{LoggerConstants.MethodName} - Calculating trolley",
-                        nameof(CalculateTrolleryCommandHandler),
+                        nameof(CalculateTrolleyCommandHandler),
                         nameof(Handle));
 
             return await _wxApiProxy.CalculateTrolley(_wxApiOptions.Token, CreateTrolleyFrom(request), cancellationToken);

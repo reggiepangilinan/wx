@@ -80,11 +80,11 @@ namespace Wx.Exercises.Tests.Controllers
 
 
         [Fact]
-        public async Task CalculateTrolley_Should_Return_Ok_WithTypeOf_Decimal()
+        public async Task CalculateTrolley_Should_Return_Ok_WithTypeOf_Doublel()
         {
             // Arrange
             _mockMediator.Setup(x => x.Send(It.IsAny<CalculateTrolleyCommand>(), It.IsAny<CancellationToken>()))
-                         .ReturnsAsync(decimal.Zero);
+                         .ReturnsAsync(1.00);
 
             // Act
             var response = await _sut.CalculateTrolley(specimens.Create<CalculateTrolleyCommand>());
@@ -95,7 +95,7 @@ namespace Wx.Exercises.Tests.Controllers
             var okResult = (OkObjectResult)response;
 
             okResult.StatusCode.ShouldBe((int)HttpStatusCode.OK);
-            okResult.Value.ShouldBeOfType<decimal>();
+            okResult.Value.ShouldBeOfType<double>();
         }
 
     }

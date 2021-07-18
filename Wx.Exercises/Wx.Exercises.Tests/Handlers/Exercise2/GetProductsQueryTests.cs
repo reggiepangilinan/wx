@@ -14,7 +14,7 @@ using Wx.Exercises.Services.Proxies.WxApiProxy;
 using Wx.Exercises.Services.Proxies.WxProxy.Models;
 using Xunit;
 
-namespace Wx.Exercises.Tests.Handlers.Exercise1
+namespace Wx.Exercises.Tests.Handlers.Exercise2
 {
     public class GetProductsQueryTests
     {
@@ -46,10 +46,11 @@ namespace Wx.Exercises.Tests.Handlers.Exercise1
         private static List<Product> CreateProductsStub()
         {
             return new List<Product>() {
-                 new Product { Name = "A", Price = 99, Quantity = 10},
-                 new Product { Name = "B", Price = 199, Quantity = 5},
-                 new Product { Name = "C", Price = 299, Quantity = 3},
-                 new Product { Name = "D", Price = 399, Quantity = 1},
+                 new Product { Name = "A", Price = 99.99, Quantity = 0},
+                 new Product { Name = "B", Price = 101.99, Quantity = 0},
+                 new Product { Name = "C", Price = 10.99, Quantity = 0},
+                 new Product { Name = "D", Price = 5, Quantity = 0},
+                 new Product { Name = "F", Price = 999999999999, Quantity = 0},
                 };
         }
 
@@ -58,37 +59,41 @@ namespace Wx.Exercises.Tests.Handlers.Exercise1
             return new List<CustomerProducts>() {
                  new CustomerProducts
                  {
-                     CustomerId = 1,
+                     CustomerId = 123,
                      Products = new List<Product>() {
-                                                     new Product { Name = "A", Price = 1, Quantity = 2},
-                                                     new Product { Name = "C", Price = 2, Quantity = 5},
+                                                     new Product { Name = "A", Price = 99.99, Quantity = 3},
+                                                     new Product { Name = "B", Price = 101.99, Quantity = 1},
+                                                     new Product { Name = "F", Price = 999999999999, Quantity = 1},
+
                                                     }
                  },
                  new CustomerProducts
                  {
-                     CustomerId = 2,
+                     CustomerId = 23,
                      Products = new List<Product>() {
-                                                     new Product { Name = "C", Price = 2, Quantity = 10},
-                                                     new Product { Name = "D", Price = 4, Quantity = 1},
+                                                     new Product { Name = "A", Price = 99.99, Quantity = 2},
+                                                     new Product { Name = "B", Price = 101.99, Quantity = 3},
+                                                     new Product { Name = "F", Price = 999999999999, Quantity = 1},
                                                     }
                  },
                  new CustomerProducts
                  {
-                     CustomerId = 3,
+                     CustomerId = 23,
                      Products = new List<Product>() {
-                                                     new Product { Name = "A", Price = 1, Quantity = 2},
-                                                     new Product { Name = "B", Price = 100, Quantity = 5},
-                                                     new Product { Name = "C", Price = 2, Quantity = 10},
+                                                     new Product { Name = "C", Price = 10.99, Quantity = 2},
+                                                     new Product { Name = "F", Price = 999999999999, Quantity = 2},
                                                     }
                  },
-                new CustomerProducts
+                    new CustomerProducts
                  {
-                     CustomerId = 4,
+                     CustomerId = 23,
                      Products = new List<Product>() {
-                                                     new Product { Name = "C", Price = 2, Quantity = 10},
-                                                     new Product { Name = "D", Price = 4, Quantity = 1},
+                                                    new Product { Name = "A", Price = 99.99, Quantity = 1},
+                                                    new Product { Name = "B", Price = 101.99, Quantity = 2},
+                                                    new Product { Name = "C", Price = 10.99, Quantity = 2},
                                                     }
-                 }
+                 },
+
                 };
         }
 
@@ -107,8 +112,8 @@ namespace Wx.Exercises.Tests.Handlers.Exercise1
             // Assert
             response.ShouldBeOfType<List<ProductModel>>();
             response.ShouldNotBeEmpty();
-            response.First().Name.ShouldBe("A");
-            response.Last().Name.ShouldBe("D");
+            response.First().Name.ShouldBe("D");
+            response.Last().Name.ShouldBe("F");
         }
 
         [Fact]
@@ -126,8 +131,8 @@ namespace Wx.Exercises.Tests.Handlers.Exercise1
             // Assert
             response.ShouldBeOfType<List<ProductModel>>();
             response.ShouldNotBeEmpty();
-            response.First().Name.ShouldBe("D");
-            response.Last().Name.ShouldBe("A");
+            response.First().Name.ShouldBe("F");
+            response.Last().Name.ShouldBe("D");
         }
 
         [Fact]
@@ -146,7 +151,7 @@ namespace Wx.Exercises.Tests.Handlers.Exercise1
             response.ShouldBeOfType<List<ProductModel>>();
             response.ShouldNotBeEmpty();
             response.First().Name.ShouldBe("A");
-            response.Last().Name.ShouldBe("D");
+            response.Last().Name.ShouldBe("F");
         }
 
         [Fact]
@@ -164,7 +169,7 @@ namespace Wx.Exercises.Tests.Handlers.Exercise1
             // Assert
             response.ShouldBeOfType<List<ProductModel>>();
             response.ShouldNotBeEmpty();
-            response.First().Name.ShouldBe("D");
+            response.First().Name.ShouldBe("F");
             response.Last().Name.ShouldBe("A");
         }
 
@@ -184,8 +189,8 @@ namespace Wx.Exercises.Tests.Handlers.Exercise1
             // Assert
             response.ShouldBeOfType<List<ProductModel>>();
             response.ShouldNotBeEmpty();
-            response.First().Name.ShouldBe("C");
-            response.Last().Name.ShouldBe("B");
+            response.First().Name.ShouldBe("A");
+            response.Last().Name.ShouldBe("D");
         }
     }
 }

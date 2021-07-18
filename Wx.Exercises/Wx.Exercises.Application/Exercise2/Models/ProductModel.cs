@@ -7,7 +7,7 @@ namespace Wx.Exercises.Application.Exercise2.Models
     public class ProductModel
     {
         public string Name { get; init; }
-        public decimal Price { get; init; }
-        public decimal Quantity { get; init; }
+        public double Price { get; init; }
+        public double Quantity { get; init; }
     }
 }

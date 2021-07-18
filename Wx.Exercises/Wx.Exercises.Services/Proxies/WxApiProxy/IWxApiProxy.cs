@@ -17,6 +17,6 @@ namespace Wx.Exercises.Services.Proxies.WxApiProxy
         Task<List<CustomerProducts>> GetShopperHistory([Query] string token, CancellationToken cancellationToken);
 
         [Post("/api/resource/trolleyCalculator")]
-        Task<decimal> CalculateTrolley([Query] string token, [Body] Trolley request, CancellationToken cancellationToken);
+        Task<double> CalculateTrolley([Query] string token, [Body] Trolley request, CancellationToken cancellationToken);
     }
 }

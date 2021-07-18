@@ -26,7 +26,7 @@ namespace Wx.Exercises.Tests.Handlers.Exercise1
         }
 
         [Fact]
-        public async void Should_Return_BasicResponseModel()
+        public async void Should_Return_UserModel()
         {
             // Arrange
             var request = new GetUserQuery();

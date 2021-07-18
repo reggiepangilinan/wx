@@ -45,14 +45,16 @@ namespace Wx.Exercises.Application.Exercise1.Queries.GetUser
                         nameof(GetProductsQueryHandler),
                         nameof(Handle));
 
+            var products = await GetProducts(cancellationToken);
+
             return request.SortOption switch
             {
-                SortOption.Low => SortByPriceLowToHigh(await GetProducts(cancellationToken)),
-                SortOption.High => SortByPriceHighToLow(await GetProducts(cancellationToken)),
-                SortOption.Ascending => SortByNameAscending(await GetProducts(cancellationToken)),
-                SortOption.Descending => SortByNameDescending(await GetProducts(cancellationToken)),
-                SortOption.Recommended => SortByMostPopular(await GetCustomerProducts(cancellationToken)),
-                _ => SortByPriceLowToHigh(await GetProducts(cancellationToken))
+                SortOption.Low => SortByPriceLowToHigh(products),
+                SortOption.High => SortByPriceHighToLow(products),
+                SortOption.Ascending => SortByNameAscending(products),
+                SortOption.Descending => SortByNameDescending(products),
+                SortOption.Recommended => SortByMostPopular(products, await GetCustomerProducts(cancellationToken)),
+                _ => SortByPriceLowToHigh(products)
             };
         }
 
@@ -96,31 +98,18 @@ namespace Wx.Exercises.Application.Exercise1.Queries.GetUser
                 .ToList();
         }
 
-        private List<ProductModel> SortByMostPopular(List<CustomerProducts> customerProducts)
+        private List<ProductModel> SortByMostPopular(List<Product> products, List<CustomerProducts> customerProducts)
         {
             var allProducts = customerProducts.SelectMany(x => x.Products).ToList();
 
-            var groupedProducts = allProducts
-                        .GroupBy(x => new { x.Name, x.Price })
-                        .Select(x =>
-                       {
-                           Func<Product, bool> MatchesNameAndPrice =
-                               z => z.Name == x.Key.Name
-                                 && z.Price == x.Key.Price;
+            var productsSortedByPopularity =
+                products.Select(p => new { Product = p, SoldCount = allProducts.Count(cp => cp.Name == p.Name) })
+                .OrderByDescending(x => x.SoldCount)
+                .Select(x => x.Product)
+                .Select(ToProductModel)
+                .ToList();
 
-                           return new ProductModel
-                           {
-                               Name = x.Key.Name,
-                               Price = x.Key.Price,
-                               Quantity = allProducts
-                                           .Where(MatchesNameAndPrice)
-                                           .Count()
-                           };
-                       })
-                        .OrderByDescending(x => x.Quantity)
-                        .ToList();
-
-            return groupedProducts;
+            return productsSortedByPopularity;
         }
 
         private static ProductModel ToProductModel(Product product)
