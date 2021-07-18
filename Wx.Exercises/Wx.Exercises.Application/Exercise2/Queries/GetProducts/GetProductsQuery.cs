@@ -91,7 +91,7 @@ namespace Wx.Exercises.Application.Exercise1.Queries.GetUser
 
         private List<ProductModel> SortByNameDescending(List<Product> products)
         {
-            return products.OrderBy(x => x.Name)
+            return products.OrderByDescending(x => x.Name)
                 .Select(ToProductModel)
                 .ToList();
         }
@@ -114,8 +114,7 @@ namespace Wx.Exercises.Application.Exercise1.Queries.GetUser
                                Price = x.Key.Price,
                                Quantity = allProducts
                                            .Where(MatchesNameAndPrice)
-                                           .Select(x => x.Quantity)
-                                           .Sum()
+                                           .Count()
                            };
                        })
                         .OrderByDescending(x => x.Quantity)

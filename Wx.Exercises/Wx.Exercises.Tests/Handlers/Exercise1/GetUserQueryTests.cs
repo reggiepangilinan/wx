@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoFixture;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Shouldly;
@@ -16,17 +17,12 @@ namespace Wx.Exercises.Tests.Handlers.Exercise1
 
         private readonly Mock<ILogger<GetUserHandler>> _mockLogger;
 
+        private readonly Fixture _specimens = new Fixture();
+
         public GetUserQueryTests()
         {
             _mockLogger = new Mock<ILogger<GetUserHandler>>();
-            _sut = new GetUserHandler(
-                _mockLogger.Object,
-                Options.Create(new WxApiOptions()
-                {
-                    BaseUrl = "fakeUrl",
-                    Token = "fakeToken",
-                    User = "fakeUser"
-                }));
+            _sut = new GetUserHandler(_mockLogger.Object, Options.Create(_specimens.Create<WxApiOptions>()));
         }
 
         [Fact]
