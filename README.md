@@ -24,9 +24,12 @@ dotnet test Wx.Exercises.Tests
 
 ## 📦 CI/CD is configured using GitHub Actions
 
-```
-.github/workflows/main_wx-exercise-api.yml
-```
+You can check my step by step progress in here
+https://github.com/reggiepangilinan/wx/actions
+
+If you want to checkout the steps
+https://github.com/reggiepangilinan/wx/blob/main/.github/workflows/main_wx-exercise-api.yml
+
 
 ## Framework + Packages used
 - Net5
@@ -59,6 +62,7 @@ curl -X POST --header 'Content-Type: application/json-patch+json' --header 'Acce
   }
 ]
 ```
+![image](https://user-images.githubusercontent.com/7448059/126067302-68495e67-653e-47e1-b662-7f3d77338780.png)
 
 
 ### ✅ Exercise 2
@@ -101,10 +105,12 @@ curl -X POST --header 'Content-Type: application/json-patch+json' --header 'Acce
   }
 ]
 ```
+![image](https://user-images.githubusercontent.com/7448059/126067333-2db6334c-0b75-44b5-991b-c484deb0f1e4.png)
+
 
 ### ✅ Exercise 3
 ---
-
+> This endpoint works intermittently. I used the endpoint provided.
 ### 👩‍💻 Curl 
 ```
 curl -X POST --header 'Content-Type: application/json-patch+json' --header 'Accept: application/json' -d '{ \ 
@@ -128,3 +134,5 @@ curl -X POST --header 'Content-Type: application/json-patch+json' --header 'Acce
   }
 ]
 ```
+
+![image](https://user-images.githubusercontent.com/7448059/126067344-b0521790-31a1-4212-ada8-57befb34eb31.png)
