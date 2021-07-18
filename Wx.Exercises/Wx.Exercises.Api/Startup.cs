@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Wx.Exercises.Api.Middleware;
 
 namespace Wx.Exercises.Api
 {
@@ -27,7 +28,6 @@ namespace Wx.Exercises.Api
             services.AddControllers()
                     .AddNewtonsoftJson(options =>
                                         {
-                                            options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                                             options.SerializerSettings.Converters.Add(new StringEnumConverter());
                                         });
 
@@ -55,6 +55,8 @@ namespace Wx.Exercises.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<GlobalExceptionMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

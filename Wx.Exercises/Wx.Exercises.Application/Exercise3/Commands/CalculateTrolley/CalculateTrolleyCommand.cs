@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Refit;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,11 @@ namespace Wx.Exercises.Application.Exercise3.Commands.CalculateTrolley
     /// </summary>
     public class CalculateTrolleyCommand : IRequest<double>
     {
+        [JsonProperty("products")]
         public List<TrolleyProductModel> Products { get; init; }
+        [JsonProperty("specials")]
         public List<TrolleySpecialModel> Specials { get; init; }
+        [JsonProperty("quantities")]
         public List<TrolleyQuantityModel> Quantities { get; init; }
     }
 

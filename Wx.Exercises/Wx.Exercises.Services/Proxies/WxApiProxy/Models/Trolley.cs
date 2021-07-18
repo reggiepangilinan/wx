@@ -26,7 +26,7 @@ namespace Wx.Exercises.Services.Proxies.WxApiProxy.Models
         [JsonProperty("quantities")]
         public List<TrolleyQuantity> Quantities { get; init; }
         [JsonProperty("total")]
-        public int Total { get; init; }
+        public double Total { get; init; }
     }
 
     public class TrolleyQuantity

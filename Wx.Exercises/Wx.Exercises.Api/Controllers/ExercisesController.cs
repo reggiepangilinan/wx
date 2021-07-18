@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Wx.Exercises.Api.Exceptions.Models;
 using Wx.Exercises.Application.Common.Enums;
 using Wx.Exercises.Application.Exercise1.Models;
 using Wx.Exercises.Application.Exercise1.Queries.GetUser;
@@ -12,6 +13,7 @@ namespace Wx.Exercises.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    
     public class ExercisesController : ControllerBase
     {
         private readonly ILogger<ExercisesController> _logger;
@@ -24,6 +26,7 @@ namespace Wx.Exercises.Api.Controllers
         }
 
         [HttpGet("user")]
+        [ProducesDefaultResponseType(typeof(GeneralErrorDetails))]
         [ProducesResponseType(typeof(UserModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUser()
         {
@@ -32,6 +35,7 @@ namespace Wx.Exercises.Api.Controllers
         }
 
         [HttpGet("sort")]
+        [ProducesDefaultResponseType(typeof(GeneralErrorDetails))]
         [ProducesResponseType(typeof(UserModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProducts([FromQuery(Name ="sortOption")] SortOption sortOption)
         {
@@ -43,6 +47,7 @@ namespace Wx.Exercises.Api.Controllers
         }
 
         [HttpPost("trolleyTotal")]
+        [ProducesDefaultResponseType(typeof(GeneralErrorDetails))]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         public async Task<IActionResult> CalculateTrolley([FromBody] CalculateTrolleyCommand command)
             => Ok(await _mediator.Send(command));
